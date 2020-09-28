@@ -26,6 +26,7 @@ import (
 	"net/http"
 )
 
+// saveMetrics is the handler to ingest metrics
 func saveMetrics(w http.ResponseWriter, r *http.Request) {
 	log.Print("Metrics save request received...")
 	metrics := &model.NodeMetrics{}
@@ -47,6 +48,7 @@ func saveMetrics(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Metrics ingested successfully")
 }
 
+// reportMetrics is the handler to generate metrics report.
 func reportMetrics(w http.ResponseWriter, r *http.Request) {
 	log.Print("Metrics report request received...")
 	cType, err := decoder.GetContentType(r)
