@@ -22,7 +22,7 @@ type MetricsReport struct {
 }
 
 type NodeTopMetrics struct {
-	IP string `json:"ip"`
-	MaxCPU int `json:"max_cpu"`
-	MaxMemory int `json:"max_memory"`
+	IP        string `json:"ip"`
+	MaxCPU    int    `json:"max_cpu"`
+	MaxMemory int    `json:"max_memory"`
 }

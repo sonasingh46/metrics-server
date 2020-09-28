@@ -49,9 +49,9 @@ func saveMetrics(w http.ResponseWriter, r *http.Request) {
 
 func reportMetrics(w http.ResponseWriter, r *http.Request) {
 	log.Print("Metrics report request received...")
-	cType,err:=decoder.GetContentType(r)
+	cType, err := decoder.GetContentType(r)
 
-	if err!=nil{
+	if err != nil {
 		log.Print("failed to report metrics:", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
 		io.WriteString(w, "failed to report metrics:"+err.Error())
@@ -59,13 +59,13 @@ func reportMetrics(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if cType != "application/json" {
-		err:= fmt.Errorf("Invalid content type:%s", cType)
+		err := fmt.Errorf("Invalid content type:%s", cType)
 		log.Print("failed to report metrics:", err.Error())
 		w.WriteHeader(http.StatusUnsupportedMediaType)
 		io.WriteString(w, "failed to report metrics:"+err.Error())
 		return
 	}
-	mr:=ControllerInstance.store.Report()
+	mr := ControllerInstance.store.Report()
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(mr)
 	if err != nil {

@@ -207,16 +207,16 @@ func TestHeapStore_GetTopMemory(t *testing.T) {
 		m model.NodeMetrics
 	}
 	tests := []struct {
-		name   string
-		args   args
+		name            string
+		args            args
 		ModifyHeapStore func()
-		want   int
+		want            int
 	}{
 		{
 			name: "Test Case #1: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
 			ModifyHeapStore: func() {
@@ -229,14 +229,14 @@ func TestHeapStore_GetTopMemory(t *testing.T) {
 			name: "Test Case #2: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 23,
-					PercentageMemoryUsed:45,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    23,
+					PercentageMemoryUsed: 45,
 				}
 				hs.PushMemoryMetric(metrics)
 			},
@@ -247,14 +247,14 @@ func TestHeapStore_GetTopMemory(t *testing.T) {
 			name: "Test Case #3: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 23,
-					PercentageMemoryUsed:40,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    23,
+					PercentageMemoryUsed: 40,
 				}
 				hs.PushMemoryMetric(metrics)
 			},
@@ -265,14 +265,14 @@ func TestHeapStore_GetTopMemory(t *testing.T) {
 			name: "Test Case #4: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 23,
-					PercentageMemoryUsed:50,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    23,
+					PercentageMemoryUsed: 50,
 				}
 				hs.PushMemoryMetric(metrics)
 			},
@@ -296,16 +296,16 @@ func TestHeapStore_GetTopCPU(t *testing.T) {
 		m model.NodeMetrics
 	}
 	tests := []struct {
-		name   string
-		args   args
+		name            string
+		args            args
 		ModifyHeapStore func()
-		want   int
+		want            int
 	}{
 		{
 			name: "Test Case #1: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
 			ModifyHeapStore: func() {
@@ -318,14 +318,14 @@ func TestHeapStore_GetTopCPU(t *testing.T) {
 			name: "Test Case #2: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 23,
-					PercentageMemoryUsed:45,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    23,
+					PercentageMemoryUsed: 45,
 				}
 				hs.PushCPUMetric(metrics)
 			},
@@ -336,14 +336,14 @@ func TestHeapStore_GetTopCPU(t *testing.T) {
 			name: "Test Case #3: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 46,
-					PercentageMemoryUsed:40,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    46,
+					PercentageMemoryUsed: 40,
 				}
 				hs.PushCPUMetric(metrics)
 			},
@@ -354,14 +354,14 @@ func TestHeapStore_GetTopCPU(t *testing.T) {
 			name: "Test Case #4: Node IP: 10.2.1.1",
 			args: args{
 				m: model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
+					NodeIP: "10.2.1.1",
 				},
 			},
-			ModifyHeapStore: func()  {
-				metrics:=model.NodeMetrics{
-					NodeIP:            "10.2.1.1",
-					PercentageCPUUsed: 15,
-					PercentageMemoryUsed:50,
+			ModifyHeapStore: func() {
+				metrics := model.NodeMetrics{
+					NodeIP:               "10.2.1.1",
+					PercentageCPUUsed:    15,
+					PercentageMemoryUsed: 50,
 				}
 				hs.PushCPUMetric(metrics)
 			},
