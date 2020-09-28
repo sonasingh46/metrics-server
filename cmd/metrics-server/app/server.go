@@ -24,18 +24,25 @@ import (
 	"net/http"
 )
 
+// Controller embeds a metric store interface.
+// This is done so as to inject different store.
 type Controller struct {
 	store model.MetricsStore
 }
 
 func NewController() *Controller {
 	return &Controller{
+		// HeapStore injected.
+		// Depending on case, a persistent/cahe layer e.g Redis store
+		// can also be injected.
 		store: heapstore.NewHeapStore(),
 	}
 }
 
+// ControllerInstance is an instance of controller.
 var ControllerInstance *Controller
 
+// StartMetricsServer starts the metrics server
 func StartMetricsServer() {
 	r := mux.NewRouter()
 	// Endpoint for checking service liveness

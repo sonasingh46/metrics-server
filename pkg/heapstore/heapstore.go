@@ -67,11 +67,15 @@ func (h *CPUPercentage) Pop() interface{} {
 	return x
 }
 
-// HeapStore store is an in memory storage for metrics data.
-// It is a max heap based
+// HeapStore is an in memory storage for metrics data.
 type HeapStore struct {
-	NodeList      map[string]bool
-	CPUMetrics    map[string]CPUPercentage
+	// NodeList stores a list of unique node IPs
+	NodeList map[string]bool
+	// CPUMetrics is a key value pair where key is the node IP
+	// and value is list of CPU use percentage till time.
+	CPUMetrics map[string]CPUPercentage
+	// MemoryMetrics is a key value pair where key is the node IP
+	// and value is list of memory use ercentage till time.
 	MemoryMetrics map[string]MemoryPercentage
 }
 
