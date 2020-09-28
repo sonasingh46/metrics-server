@@ -16,7 +16,7 @@ limitations under the License.
 
 package main
 
-import "github.com/sonasingh46/metrics-server/cmd/app"
+import "github.com/sonasingh46/metrics-server/cmd/metrics-server/app"
 
 func main() {
 	app.StartMetricsServer()

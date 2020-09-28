@@ -67,45 +67,44 @@ func (h *CPUPercentage) Pop() interface{} {
 	return x
 }
 
-
 // HeapStore store is an in memory storage for metrics data.
 // It is a max heap based
 type HeapStore struct {
-	NodeList map[string]bool
-	CPUMetrics map[string]CPUPercentage
+	NodeList      map[string]bool
+	CPUMetrics    map[string]CPUPercentage
 	MemoryMetrics map[string]MemoryPercentage
 }
 
 // NewHeapStore returns a new heap store to store metrics data
 func NewHeapStore() *HeapStore {
 	return &HeapStore{
-		NodeList: map[string]bool{},
-		CPUMetrics: map[string]CPUPercentage{},
+		NodeList:      map[string]bool{},
+		CPUMetrics:    map[string]CPUPercentage{},
 		MemoryMetrics: map[string]MemoryPercentage{},
 	}
 }
 
 // Create pushes the metrics in the heap store.
 func (hs *HeapStore) Create(m model.NodeMetrics) error {
-	if strings.TrimSpace(m.NodeIP)==""{
+	if strings.TrimSpace(m.NodeIP) == "" {
 		return errors.New("Node ip is empty!")
 	}
-	hs.NodeList[m.NodeIP]=true
+	hs.NodeList[m.NodeIP] = true
 	hs.PushCPUMetric(m)
 	hs.PushMemoryMetric(m)
 	return nil
 }
 
 // Create pushes the metrics in the heap store.
-func (hs *HeapStore) Report() (model.MetricsReport) {
-	mr:=model.MetricsReport{
-		Stats:make([]model.NodeTopMetrics,len(hs.NodeList)),
+func (hs *HeapStore) Report() model.MetricsReport {
+	mr := model.MetricsReport{
+		Stats: make([]model.NodeTopMetrics, len(hs.NodeList)),
 	}
-	index:=0
-	for nodeIP,_:=range hs.NodeList{
-		mr.Stats[index].IP=nodeIP
-		mr.Stats[index].MaxCPU=hs.GetTopCPU(nodeIP)
-		mr.Stats[index].MaxMemory=hs.GetTopMemory(nodeIP)
+	index := 0
+	for nodeIP, _ := range hs.NodeList {
+		mr.Stats[index].IP = nodeIP
+		mr.Stats[index].MaxCPU = hs.GetTopCPU(nodeIP)
+		mr.Stats[index].MaxMemory = hs.GetTopMemory(nodeIP)
 		index++
 	}
 	return mr
@@ -116,17 +115,17 @@ func (hs *HeapStore) PushCPUMetric(m model.NodeMetrics) {
 	// If there is no CPU metrics for the particular node
 	// then initialize the heap store for that node and
 	// push.
-	if hs.CPUMetrics[m.NodeIP].Len()==0{
-		cpu:=&CPUPercentage{m.PercentageCPUUsed}
+	if hs.CPUMetrics[m.NodeIP].Len() == 0 {
+		cpu := &CPUPercentage{m.PercentageCPUUsed}
 		heap.Init(cpu)
-		hs.CPUMetrics[m.NodeIP]=*cpu
+		hs.CPUMetrics[m.NodeIP] = *cpu
 
-	}else {
+	} else {
 		// If some metrics already exists for the node
 		// just push this incoming metric.
-		cpu:=hs.CPUMetrics[m.NodeIP]
-		heap.Push(&cpu,m.PercentageCPUUsed)
-		hs.CPUMetrics[m.NodeIP]=cpu
+		cpu := hs.CPUMetrics[m.NodeIP]
+		heap.Push(&cpu, m.PercentageCPUUsed)
+		hs.CPUMetrics[m.NodeIP] = cpu
 	}
 }
 
@@ -135,30 +134,30 @@ func (hs *HeapStore) PushMemoryMetric(m model.NodeMetrics) {
 	// If there is no memory metrics for the particular node
 	// then initialize the heap store for that node and
 	// push.
-	if hs.MemoryMetrics[m.NodeIP].Len()==0{
-		mem:=&MemoryPercentage{m.PercentageMemoryUsed}
+	if hs.MemoryMetrics[m.NodeIP].Len() == 0 {
+		mem := &MemoryPercentage{m.PercentageMemoryUsed}
 		heap.Init(mem)
-		hs.MemoryMetrics[m.NodeIP]=*mem
-	}else {
+		hs.MemoryMetrics[m.NodeIP] = *mem
+	} else {
 		// If some metrics already exists for the node
 		// just push this incoming metric.
-		mem:=hs.MemoryMetrics[m.NodeIP]
-		heap.Push(&mem,m.PercentageMemoryUsed)
-		hs.MemoryMetrics[m.NodeIP]=mem
+		mem := hs.MemoryMetrics[m.NodeIP]
+		heap.Push(&mem, m.PercentageMemoryUsed)
+		hs.MemoryMetrics[m.NodeIP] = mem
 	}
 }
 
 // GetTopMemory returns the top memmory usage metric for a particular node.
-func (hs *HeapStore)GetTopMemory(nodeIP string)int  {
-	if hs.MemoryMetrics[nodeIP].Len()==0{
+func (hs *HeapStore) GetTopMemory(nodeIP string) int {
+	if hs.MemoryMetrics[nodeIP].Len() == 0 {
 		return 0
 	}
 	return hs.MemoryMetrics[nodeIP][0]
 }
 
 // GetTopCPU returns the top CPU usage metric for a particular node.
-func (hs *HeapStore)GetTopCPU(nodeIP string)int  {
-	if hs.CPUMetrics[nodeIP].Len()==0{
+func (hs *HeapStore) GetTopCPU(nodeIP string) int {
+	if hs.CPUMetrics[nodeIP].Len() == 0 {
 		return 0
 	}
 	return hs.CPUMetrics[nodeIP][0]
