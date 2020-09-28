@@ -77,3 +77,14 @@ curl -X GET \
 
 ```
 
+**Sample Test Cases:**
+
+To try/test out this server, a bash script has been written.
+You can find it [here](hack/test.sh) 
+Read the bash script and execute it to verify the results.
+
+## Building it locally
+
+1. Clone this github repo
+2. Run `make test` if you have done code changes. 
+3. Run `make metrics-server.amd64` to build a docker image
