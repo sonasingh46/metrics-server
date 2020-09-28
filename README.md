@@ -88,3 +88,9 @@ Read the bash script and execute it to verify the results.
 1. Clone this github repo
 2. Run `make test` if you have done code changes. 
 3. Run `make metrics-server.amd64` to build a docker image
+
+## Limitations and ToDo
+
+The server does not handle the concurrency aspects as of now. If there are
+concurrent request for the server to ingest the metrics, there is possibility
+of race conditions. This is a TODO item.
